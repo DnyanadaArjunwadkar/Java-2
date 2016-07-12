@@ -17,18 +17,14 @@ public class socks {
 			System.out.println("Client:"+str);
 			
 			DataOutputStream op=new DataOutputStream(serv.getOutputStream());
-            System.out.println("Enter your msg for client");
-            Scanner uip1 = new Scanner(System.in);
-            String uip = uip1.nextLine();
-            op.writeUTF(uip);
-            
-
+		            System.out.println("Enter your msg for client");
+		            Scanner uip1 = new Scanner(System.in);
+		            String uip = uip1.nextLine();
+		            op.writeUTF(uip);
 			//op.writeUTF("Hello from Server");
-			
-            op.flush();
-        uip1.close();
-            op.close();
-			
+		        op.flush();
+		        uip1.close();
+		        op.close();
 			ss.close();
 			ip.close();
 		} catch (IOException e) {
@@ -37,9 +33,5 @@ public class socks {
 		}
 		
 	}
-	
-	
-	
-	
-	
+
 }
