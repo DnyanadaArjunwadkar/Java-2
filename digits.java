@@ -46,7 +46,6 @@ public class digits {
     	
     	System.out.println("Letter");
     }
-    
 	}
 
 }
