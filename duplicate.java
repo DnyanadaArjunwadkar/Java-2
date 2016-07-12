@@ -4,10 +4,10 @@
  */
 import java.util.Arrays;
 import java.util.Scanner;
-
 public class duplicate {
 
 	public static void main(String[] args) {
+		
 		// TODO Auto-generated method stub		
 		System.out.println("Enter a String to detect duplicates:");
 		Scanner in=new Scanner(System.in);
