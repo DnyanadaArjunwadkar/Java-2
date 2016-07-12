@@ -124,7 +124,6 @@ public class vowConso {
 		 
 		 for (Entry<String, Integer> entry : list2) {
 	            System.out.println("KEy:"+entry.getKey()+": Value :"+entry.getValue());
-
 	        }
 		 
 	}
