@@ -7,6 +7,7 @@ public class reverse {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
 		 System.out.print("enter a string:");
 		 Scanner sc= new Scanner(System.in);
 		    String s1=sc.nextLine();
