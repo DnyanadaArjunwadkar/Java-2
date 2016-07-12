@@ -44,10 +44,6 @@ public class vowelsConsonants {
 		    }
 		   
 		    System.out.println("Conso:"+conso+": Vowel :"+vowel);
-		  
-		  
-		    
-
 	}
 
 }
