@@ -23,8 +23,6 @@ public class anagram {
 	String s22=s2.replaceAll("\\s", "");
     if(s11.length()==s22.length())
     {
-    	
-    	
     	System.out.println("s11:"+s11);
     	System.out.println("s22:"+s22);
     	
@@ -63,7 +61,6 @@ public class anagram {
     	{
     		System.out.println("Nooooooooooooooo no onononon nonono nonon nononn ");
     	}
-    	
     }
     else
     {
