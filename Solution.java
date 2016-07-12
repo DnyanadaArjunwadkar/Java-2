@@ -19,17 +19,11 @@ public class Solution {
             {
             //System.out.print("Yes");
            return true;
-            
         }
         else
             {
              return false;
         }
-            
-        
-        
-        // Complete the function by writing your code here.
-        
     }
   
     public static void main(String[] args) {
