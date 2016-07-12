@@ -16,13 +16,12 @@ public class Solution {
         Arrays.sort(c1);
         Arrays.sort(c2);
         if(Arrays.equals(c1,c2))
-            {
-            //System.out.print("Yes");
+        {
            return true;
         }
         else
-            {
-             return false;
+        {
+           return false;
         }
     }
   
