@@ -18,7 +18,7 @@ public class imgVal {
 		 int bad=0;
          int good=0;
          //Note-> source files i.e. folder number assigned to you
-		File dir = new File("/Users/dny/Desktop/shitty_work/172/");
+		File dir = new File("/Users/dny/Desktop/work/172/");
 		File[] files = dir.listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
 		    	
@@ -52,9 +52,9 @@ public class imgVal {
                    	   //System.out.println("Width : "+ width);
             		  // filedata.delete();
             		 //Note: source of file:---->  source files i.e. folder number assigned to you
-            		 File oldname = new File("/Users/dny/Desktop/shitty_work/172/"+filedata.getName());
+            		 File oldname = new File("/Users/dny/Desktop/work/172/"+filedata.getName());
             		 //Note:--> folder where files will be moved
-      	             File newname = new File("/Users/dny/Desktop/shitty_work/172_bad/"+filedata.getName());
+      	             File newname = new File("/Users/dny/Desktop/work/172_bad/"+filedata.getName());
       	             oldname.renameTo(newname);
       	        //     System.out.println("Thumbnail moved");
             	 
@@ -103,9 +103,9 @@ public class imgVal {
             				 System.out.println("White color Percentage:"+String.valueOf(percent));
                     	     System.out.println("Grey color Percentage:"+String.valueOf(percent_grey));
                     	     //Note:-> source file//source files i.e. folder number assigned to you
-            	             File oldname = new File("/Users/dny/Desktop/shitty_work/172"+filedata.getName());
+            	             File oldname = new File("/Users/dny/Desktop/work/172"+filedata.getName());
             	           //Note:--> folder where files will be moved
-            	             File newname = new File("/Users/dny/Desktop/shitty_work/172_bad/"+filedata.getName());
+            	             File newname = new File("/Users/dny/Desktop/work/172_bad/"+filedata.getName());
             	             oldname.renameTo(newname);
             	             System.out.println("File Moved");
             			   }
@@ -127,7 +127,7 @@ public class imgVal {
 	    }//end of a for loop which has an image
 	  	     
 	   //Note-->source of file//source files i.e. folder number assigned to you
-	   File dir2 = new File("/Users/dny/Desktop/shitty_work/172");
+	   File dir2 = new File("/Users/dny/Desktop/work/172");
 		File[] files2 = dir.listFiles(new FilenameFilter() {
 		    public boolean accept(File dir, String name) {
 		    	
