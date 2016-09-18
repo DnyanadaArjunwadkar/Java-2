@@ -1,0 +1,272 @@
+package dny_6;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class CSE535Assignment_OLD {
+	static HashMap<String, LinkedList<Integer>> hash_docid =  new HashMap<String, LinkedList<Integer>>();//term-doc id 
+	static HashMap<String, LinkedList<Integer>> hash_tf =  new HashMap<String, LinkedList<Integer>>();//term-tf
+	
+
+	static Map<String, Integer> sortedMap;
+	
+	static Map<String, Integer> hash_term_count = new HashMap<String, Integer>();
+	
+	private static Comparator cmp_docid;
+	private static Comparator cmp_tf;
+    
+	public static void main(String[] args) throws IOException {
+		// TODO Auto-generated method stub
+		FileInputStream fileInputStream = null;
+	        FileOutputStream fileOutputStream = null;
+	        BufferedReader br = null ;
+   
+	        try {
+				fileInputStream = new FileInputStream("C:\\Users\\Sony\\Desktop\\UB IR\\trial.txt");
+				fileOutputStream = new FileOutputStream("output_log25");
+		
+				 br = new BufferedReader(new InputStreamReader(fileInputStream));
+				 String strLine;
+				 
+				 while ((strLine = br.readLine()) != null)
+				 {
+					 String[] arr= strLine.split("\\\\");
+					 arrtoformat(arr);
+				 }
+					getPostings("-");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        finally 
+	        {
+	            
+	            if (fileInputStream != null)
+	            {
+	                fileInputStream.close();
+	                br.close();
+	            }
+	            if (fileInputStream != null)
+	            {
+	                fileOutputStream.close();
+	            }
+	        }
+	        
+	        Set set = hash_docid.entrySet();
+	        Iterator iterator1 = set.iterator();
+	        System.out.println("trying to print term-docid hashmap should be sorted");
+	        while(iterator1.hasNext()) {
+	           Map.Entry mentry = (Map.Entry)iterator1.next();
+	           System.out.print("Term: "+ mentry.getKey() + "\tDocument Id");
+	           System.out.println(mentry.getValue());
+	        }
+	   	
+	        Set set1 = hash_tf.entrySet();
+	        Iterator iterator2 = set1.iterator();
+	        System.out.println("____________________________________________________________");
+	        
+	        System.out.println("trying to print **term-tf** hashmap should be sorted");
+	        while(iterator2.hasNext()) {
+	           Map.Entry mentry1 = (Map.Entry)iterator2.next();
+	           System.out.print("Term: "+ mentry1.getKey() + "\tTerm Frequency: ");
+	           System.out.println(mentry1.getValue());
+	        }
+	        
+	        System.out.println("Unsorted______map________term____count for topk");
+	        printMap(hash_term_count);
+	        System.out.println("-------------beginning of term count map ####UNSORTED##### ends__________________________");
+	    	
+	        Map<String, Integer> sorted_hash_term_count = sortByComparator(hash_term_count);
+	        System.out.println("-------------$$$$$Sorted term count hashmap$$$$$$^^^^^^___");
+	    	printMap(sorted_hash_term_count);
+	        
+	  
+	    	
+	    	topK(5);	
+	    	 
+}//main
+	
+private static Map<String, LinkedList> sortByComparator(HashMap<String, LinkedList<Integer>> term_post2) 
+        {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+static void arrtoformat(String[] arr)	
+{
+
+// array[0] is term
+// array[2] is array of doc ids
+// process that array to get pair < doc Id, term freq >
+	
+	String term=arr[0].toString();//term
+	String temp=arr[2].toString();//doc id
+	
+	String str_temp=arr[1].toString();//trying to get the count i.e. size of posting list
+	String[] st=str_temp.split("c");
+	String st1=st[1].toString();
+	int x= Integer.parseInt(st1);// got the count in x;
+	
+	hash_term_count.put(term,x);
+	
+	postingsconvert(temp,term);	
+}
+	
+
+@SuppressWarnings("unchecked")
+public static void postingsconvert(String string, String string1)//string1 cause we need to access term string 
+{
+	// TODO Auto-generated method stub
+		
+	LinkedList<Integer> li_docid=new LinkedList<Integer>();
+	
+	LinkedList<Integer> li_tf=new LinkedList<Integer>();
+		
+		
+	String[] split1= string.split("m");
+	split1[1] = split1[1].replaceAll("\\[","").replaceAll("\\]", "").replaceAll("\\s+","");
+	String [] finalSplit = split1[1].split(",");
+	for(String doc : finalSplit){
+		String[] tempArray = doc.split("/");
+		
+		
+		Integer docId =Integer.parseInt(tempArray[0]);
+		Integer termFrequency = Integer.parseInt(tempArray[1]);
+		
+		Postings ps= new Postings(docId,termFrequency);	
+		ps.setDocId(docId);
+		ps.setTf(termFrequency);
+		   
+		li_docid.add(docId);
+		li_tf.add(termFrequency);
+		
+		li_po.add(ps);
+		
+		
+	}
+	HashMap<String, LinkedList<Postings>> term_post =  new HashMap<String, LinkedList<Postings>>();
+	term_post.put(string1, li_po);
+	Collections.sort(li_docid);
+	Comparator cmptf=Collections.reverseOrder();
+	 Collections.sort(li_tf, cmptf); 
+	
+	
+	
+    //Collections.sort(li_po,Postings.cmp_docid);
+    Collections.sort(li_po,Postings.cmp_tf);
+    
+  
+ 
+	
+	hash_docid.put(string1,li_docid);
+	hash_tf.put(string1,li_tf);
+	
+}
+
+
+
+@SuppressWarnings("null")
+static void topK(int k)
+{
+	
+	
+	System.out.println("Entered in top k__________________________________________________________");
+	Map<String, Integer> sorted_hash_term_count = sortByComparator(hash_term_count);
+	//sorted_hash_term_count.keySet()
+	@SuppressWarnings("rawtypes")
+	Set setOfKeys = sorted_hash_term_count.keySet();
+	 @SuppressWarnings("rawtypes")
+	Iterator iterator = setOfKeys.iterator();
+	 int tmp=0;
+		 while(iterator.hasNext())
+		 {
+			 if(tmp==k)
+				 break;
+			 else{
+			 String key = (String) iterator.next();
+			System.out.println("Top "+k+" terms are:"+key);
+			 }
+			 
+			 tmp++;
+			 // Integer key=sorted_hash_term_count.get(key);
+		 }
+		 
+		 
+	
+
+		System.out.println("Exit topk______________________________________________________");
+}
+
+//sort map
+
+
+
+private static Map<String, Integer> sortByComparator(Map<String, Integer> hash_term_count)
+{
+
+	// Convert Map to List
+	List<Map.Entry<String, Integer>> list = 
+		new LinkedList<Map.Entry<String, Integer>>(hash_term_count.entrySet());
+
+	// Sort list with comparator, to compare the Map values
+	Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+		public int compare(Map.Entry<String, Integer> o1,
+                                       Map.Entry<String, Integer> o2) {
+			return (o1.getValue()).compareTo(o2.getValue());
+		}
+	});
+	
+	Collections.reverse(list);
+    
+	// Convert sorted map back to a Map
+	Map<String, Integer> sorted_hash_term_count = new LinkedHashMap<String, Integer>();
+	for (Iterator<Map.Entry<String, Integer>> it = list.iterator(); it.hasNext();) {
+		Map.Entry<String, Integer> entry = it.next();
+		sorted_hash_term_count.put(entry.getKey(), entry.getValue());
+	}
+	return sorted_hash_term_count;
+}
+
+public static void printMap(Map<String, Integer> map)
+{
+	for (Map.Entry<String, Integer> entry : map.entrySet()) {
+		System.out.println("[Term]:" + entry.getKey()+ "\t[Value] : " + entry.getValue());
+	}
+}
+
+static void getPostings(String q)
+{
+  //String q1="\";
+	
+  LinkedList<Integer> postings_ans_docid= hash_docid.get(q);
+  LinkedList<Integer> postings_ans_tf= hash_tf.get(q);
+  
+  //System.out.printf("output from posting lisgett::::::::");
+  // System.out.println("document id wise output:"+postings_ans_docid);
+  
+
+  //System.out.printf("output from posting list::::::::");
+  //System.out.println("Term Frequency wise output:"+postings_ans_tf);
+}
+	
+	
+	
+	
+	
+	
+	
+}
